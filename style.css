@@ -1,0 +1,1606 @@
+/* ============================================
+   HARVEST MOON COMPANION - STRUCTURED CSS
+   ============================================ */
+
+/* ============================================
+   1. CSS VARIABLES & THEME
+   ============================================ */
+:root {
+    /* Base Colors */
+    --bg: #225d75;
+    --panel: #fffdf7;
+    --panel2: #f0ead9;
+    --surface: #151e18;
+    --surface2: #1b261e;
+    --surface3: #223025;
+    --ink: #f2f0e7;
+    --muted: #ebeff6c8;
+    --line: #334136;
+    --nav: rgba(246, 254, 254, 0.739);
+    
+    /* Accent Colors */
+    --leaf: #91bd62;
+    --leaf2: #6e9948;
+    --gold: #d9ae55;
+    --red: #d56b5e;
+    --blue: #6ea7c7;
+    --black: black;
+    --green: #00a642;
+    
+    /* Seasonal Colors (Backgrounds) */
+    --color-spring: #FFB7C5;
+    --color-summer: #FFD700;
+    --color-fall: #FF8C00;
+    --color-winter: #87CEEB;
+    
+    /* Seasonal Text Colors (Better Contrast) */
+    --text-spring: #D6336C;
+    --text-summer: #B8860B;
+    --text-fall: #D2691E;
+    --text-winter: #0077BE;
+    
+    /* Typography */
+    --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    
+    /* Spacing & Radius */
+    --radius: 18px;
+    --radius-sm: 11px;
+    
+    /* Shadows */
+    --shadow: 0 20px 55px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================================
+   2. GLOBAL RESETS & BASE
+   ============================================ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+}
+
+/* ============================================
+   3. HEADER
+   ============================================ */
+header {
+    height: 78px;
+    background: var(--leaf2);
+    border-bottom: 3px solid var(--leaf2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.brand {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    font-size: 34px;
+}
+
+.brand h1 {
+    font-size: 25px;
+    margin: 0;
+}
+
+.brand p {
+    font-size: 18px;
+    color: var(--muted);
+    margin: 2px 0;
+}
+
+/* ============================================
+   4. LAYOUT STRUCTURE
+   ============================================ */
+.app {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: calc(100vh - 74px);
+}
+
+aside {
+    border-right: 1px solid var(--ink);
+    padding: 18px;
+    background: var(--nav);
+    position: sticky;
+    top: 74px;
+    height: calc(100vh - 74px);
+    overflow: auto;
+}
+
+main {
+    padding: 18px;
+    background: var(--surface2);
+    top: 74px;
+}
+
+/* ============================================
+   5. NAVIGATION
+   ============================================ */
+nav {
+    display: grid;
+    gap: 5px;
+}
+
+.nav {
+    padding: 10px 12px;
+    text-align: left;
+    border: 0;
+    background: transparent;
+    color: var(--black);
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.nav:hover,
+.nav.active {
+    background: var(--leaf2);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+}
+
+/* ============================================
+   6. CONTENT CONTAINERS
+   ============================================ */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(206px, 1fr));
+    gap: 20px;
+}
+
+.container:has(.remove-grid) {
+    display: block;
+}
+
+/* Loading and empty state messages */
+.loading-message {
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+  font-size: 16px;
+  font-style: italic;
+}
+
+/* ============================================
+   7. CARD COMPONENTS (NPC Boxes, etc.)
+   ============================================ */
+.box {
+    min-width: 0;
+    padding: 10px 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    transform: perspective(700px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.box:hover {
+    border-color: var(--gold);
+    box-shadow: 0 24px 45px rgba(0, 0, 0, 0.4);
+}
+
+/* Image Frame */
+.image-frame {
+    height: 250px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--ink);
+}
+
+.image-frame.no-image {
+    background-color: var(--surface3);
+}
+
+.image-frame.no-image span {
+    color: var(--leaf);
+    font-size: 74px;
+    font-weight: 800;
+}
+
+.image-frame img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    transform: scale(1) translate(0, 0);
+    transition: transform 400ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: transform;
+}
+
+.box:hover .image-frame img,
+.box:hover .no-image span {
+    transform: scale(1.14) translate(var(--image-x, 0), var(--image-y, 0));
+}
+
+/* Card Content */
+.box h2 {
+    margin: 12px 4px 0;
+    color: var(--green);
+    font-size: 16px;
+    text-align: center;
+}
+
+.box dl {
+    display: grid;
+    gap: 7px;
+    margin: 12px 4px 0;
+}
+
+.detail {
+    display: grid;
+    grid-template-columns: minmax(70px, 0.7fr) 1.3fr;
+    gap: 8px;
+    padding-top: 7px;
+    border-top: 1px solid var(--line);
+}
+
+.detail dt,
+.detail dd {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.35;
+}
+
+.detail dt {
+    color: var(--muted);
+}
+
+.detail dd {
+    color: var(--ink);
+    overflow-wrap: anywhere;
+}
+
+/* ============================================
+   CROPS RENDER
+   ============================================ */
+
+.container .bg-crop{
+    background: var(--ink);
+}
+.container .bg-crop img {
+   max-width: 80%;
+}
+/* 1. Gold Crop (Soft, Warm Glow) */
+.image-frame img.crop-gold {
+  filter: sepia(20%) saturate(120%) brightness(1.5) 
+          drop-shadow(0 0 8px rgba(255, 215, 0, 0.6)) 
+          drop-shadow(0 0 20px rgba(255, 160, 0, 0.4));
+}
+
+/* 2. Red Crop (Warm, Gentle Fire) */
+.image-frame img.crop-red {
+  filter: brightness(1.05) contrast(110%) saturate(110%) 
+          drop-shadow(0 0 8px rgba(255, 69, 0, 0.6)) 
+          drop-shadow(0 0 20px rgba(255, 0, 0, 0.4));
+}
+
+/* 3. Black Crop (Subtle Depth, Not Void) */
+.image-frame img.crop-black {
+  /* Less dark, more "shadowy" than "void" */
+  filter: brightness(0.95) contrast(110%) saturate(90%) 
+          drop-shadow(0 0 6px rgba(0, 0, 0, 0.7)) 
+          drop-shadow(0 0 15px rgba(40, 40, 40, 0.5));
+}
+
+/* 4. Mineral Crops (Soft Ice, Not Blinding Blue) */
+.image-frame img.crop-mineral {
+  /* Cooler but softer blue/cyan */
+  filter: brightness(1.2) contrast(110%) saturate(110%) 
+          drop-shadow(0 0 8px rgba(0, 255, 255, 0.6)) 
+          drop-shadow(0 0 25px rgba(30, 144, 255, 0.4)) 
+          drop-shadow(0 0 40px rgba(173, 216, 230, 0.2));
+  
+  border: none;
+}
+
+/* 5. Platinum Crop (Elegant Silver, Not Glaring White) */
+.image-frame img.crop-platinum {
+  /* Bright but not blinding silver */
+  filter: brightness(2) contrast(110%) saturate(90%) 
+          drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)) 
+          drop-shadow(0 0 15px rgba(192, 192, 192, 0.5)) 
+          drop-shadow(0 0 30px rgba(220, 220, 250, 0.3));
+}
+
+
+/* ============================================
+   NPC MODAL STYLES 
+   ============================================ */
+
+/* Section Cards */
+.npc-section {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+/* Section Headers */
+.npc-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.npc-section-icon {
+  font-size: 18px;
+}
+
+.npc-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gold);
+  margin: 0;
+}
+
+/* Grid for Info Rows */
+.npc-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+/* Specific Styling for Gift Categories */
+.gift-category {
+  margin-bottom: 10px;
+}
+
+.gift-category-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.gift-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gift-chip {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--ink);
+}
+
+/* Gift Colors */
+.gift-loved { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; border-color: #ff6b6b; }
+.gift-liked { background: rgba(240, 217, 46, 0.2); color: #f0d92e; border-color: #f0d92e; }
+.gift-neutral { background: rgba(136, 136, 136, 0.2); color: #aaa; border-color: #aaa; }
+.gift-disliked { background: rgba(100, 100, 200, 0.2); color: #6464c8; border-color: #6464c8; }
+.gift-hated { background: rgba(50, 50, 50, 0.4); color: #888; border-color: #555; }
+
+/* Schedule Time Slots */
+.schedule-row {
+  display: flex;
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.schedule-row:last-child {
+  border-bottom: none;
+}
+
+.schedule-time {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  min-width: 60px;
+  text-align: right;
+}
+
+.schedule-activity {
+  font-size: 14px;
+  color: var(--ink);
+  flex: 1;
+}
+
+/* Separator styling (if used) */
+.npc-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 12px 0;
+}
+
+.boxDetail.separator {
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ============================================
+   8. MODAL SYSTEM
+   ============================================ */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: #0008;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 20;
+}
+
+/* Separator rows in modals */
+.boxDetail.separator {
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+.boxDetail.separator dt,
+.boxDetail.separator dd {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.modal.hidden {
+    display: none !important;
+}
+
+.modal-card {
+    width: min(100%, 1100px);
+    max-height: 85vh;
+    overflow: hidden;
+    background: var(--leaf);
+    color: #000;
+    font-size: 15px;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    padding: 22px;
+    position: relative;
+    box-shadow: 0 20px 70px #0008;
+}
+
+#modalContent {
+    margin-top: 20px;
+}
+
+.modal-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 38%) minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+    height: 100%;
+    min-height: 70vh;
+}
+
+.modal-image-panel,
+.modal-info-panel {
+    background: rgba(0, 0, 0, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    height: 100%;
+}
+
+.modal-image-panel {
+    padding: 10px 12px;
+    overflow: hidden;
+    max-height: 70vh;
+}
+
+.modal-image-panel h2 {
+    text-align: center;
+    color: var(--ink);
+}
+
+.modal-info-panel {
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px 12px;
+    scrollbar-width: none;
+}
+
+.modal-info-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-info-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+}
+
+.close {
+    z-index: 99;
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    border: 0;
+    background: transparent;
+    color: var(--text-winter);
+    font-size: 32px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s 
+}
+
+.close:hover {
+    transform: rotate(90deg) scale(1.2);
+}
+
+/* Modal Detail Styling */
+.boxDetail dd,
+.boxDetail dt {
+    font-size: 20px;
+}
+
+
+
+/* ============================================
+   9. MODAL IMAGE DISPLAY (MDI)
+   ============================================ */
+.mdi {
+    height: 100%;
+    max-height: 60vh;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--surface3);
+    position: relative;
+}
+
+.mdi-image{
+    background: var(--ink);
+}
+
+.mdi img {
+    width: 100%;
+    height: 80%;
+    object-fit: contain;
+    display: block;
+    /* ADD THIS LINE BELOW */
+    transition: transform 400ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: transform;
+}
+
+.mdi:hover img {
+    transform: scale(1.14) translate(var(--image-x, 0), var(--image-y, 0));
+}
+/* ============================================
+   10. CALENDAR SYSTEM
+   ============================================ */
+
+/* Calendar Content Area */
+.content {
+    padding: 28px;
+    max-width: 1600px;
+    margin: auto;
+    overflow-y: auto;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.hero h1 {
+    font-size: 30px;
+    letter-spacing: -0.03em;
+    margin: 0 0 6px;
+    color: var(--ink);
+}
+
+.hero p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+/* KPI Stats Row */
+.kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.kpi {
+    padding: 15px;
+    border-radius: 14px;
+    background: var(--surface2);
+    border: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.kpi b {
+    display: block;
+    font-size: 22px;
+    color: var(--ink);
+}
+
+.kpi span {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* Calendar Panel */
+.panel {
+    background: linear-gradient(180deg, var(--surface), rgba(21, 30, 24, 0.86));
+    border: 1px solid var(--line);
+    border-radius: var(--radius, 12px);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.panel.pad {
+    padding: 18px;
+}
+
+.calendar {
+    overflow: hidden;
+}
+
+/* Weekday Header */
+.weekday,
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.weekday {
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.weekday div {
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid var(--line);
+}
+
+.weekday div:last-child {
+    border-right: 0;
+}
+
+/* Day Cells */
+.day,
+.day.blank {
+    min-height: 150px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px;
+    cursor: pointer;
+    transition: 0.15s;
+    background: rgba(21, 30, 24, 0.55);
+    box-sizing: border-box;
+}
+
+.day:nth-child(7n) {
+    border-right: 0;
+}
+
+.day:hover {
+    background: var(--surface3);
+    transform: translateY(-1px);
+    z-index: 1;
+    position: relative;
+}
+
+.day.blank {
+    background: var(--surface3);
+    cursor: default;
+}
+
+/* Day Header (Number) */
+.day .dayhead {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.daynum {
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--ink);
+}
+
+.day .tiny {
+    font-size: 0.65rem;
+    color: #888;
+}
+
+/* Event Chips */
+.eventchip {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    margin: 1px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.eventchip.optional {
+    border-left-color: var(--gold);
+    background: rgba(217, 174, 85, 0.09);
+   color: var(--gold);
+}
+
+.eventchip.done {
+    opacity: 0.38;
+    text-decoration: line-through;
+}
+
+/* Chip Specific Colors */
+.quest-chip {
+    background-color: #4ecdc4;
+    color: #fff;
+    border-color: #3dbdb5;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+}
+
+.quest-chip-dot {
+    background-color: #4ecdc4;
+    color: #fff;
+    border-color: #3dbdb5;
+    font-size: 0.6rem;
+    padding: 2px 4px;
+    width: 12px;
+    height: 12px;
+    text-align: center;
+    line-height: 10px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quest-chip-dot:hover {
+    box-shadow: 0 0 5px #4ecdc4;
+}
+
+.bday-chip {
+    background-color: #ff6b6b;
+    color: #fff;
+    border-color: #e05555;
+}
+
+.fest-chip {
+    background-color: #f0d92e;
+    color: #333;
+    border-color: #d4b90f;
+}
+
+/* More Badge */
+.more-badge {
+    font-size: 0.6rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 2px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Buttons */
+.btn {
+    border: 1px solid var(--line);
+    background: var(--surface2);
+    color: var(--ink);
+    padding: 9px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn:hover {
+    border-color: var(--leaf);
+}
+
+.btn.primary {
+    background: var(--leaf);
+    border-color: var(--leaf);
+    color: #142014;
+    font-weight: 800;
+}
+
+/* ============================================
+   11. CALENDAR MODAL STYLES (Event Details)
+   ============================================ */
+
+/* Event List Container */
+.event-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Individual Event Block */
+.event-block {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid var(--line);
+}
+
+.event-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 18px;
+    color: var(--ink);
+}
+
+.event-label {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--surface3);
+    color: var(--muted);
+    border: 1px solid var(--line);
+}
+
+/* Badge Colors */
+.fest-badge {
+    background: rgba(240, 217, 46, 0.2);
+    color: #f0d92e;
+    border-color: #f0d92e;
+}
+
+.bday-badge {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+.quest-badge {
+    background: rgba(78, 205, 196, 0.2);
+    color: #4ecdc4;
+    border-color: #4ecdc4;
+}
+
+/* Event Block Details */
+.event-block .detail {
+    border-top: 1px solid var(--line);
+    padding-top: 6px;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.event-block dt {
+    color: var(--muted);
+}
+
+.event-block dd {
+    color: var(--ink);
+}
+
+/* ============================================
+   12. SEASONAL ANIMATIONS & MODAL ENHANCEMENTS
+   ============================================ */
+
+
+/* Ensure the modal image panel maintains height */
+.modal-image-panel {
+  position: relative; /* Critical for absolute positioning of particles */
+  overflow: hidden;   /* Prevent particles from overflowing */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Container for particles - sits exactly over the emoji */
+.season-particle-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 10; /* Ensure particles appear above text if needed */
+}
+
+/* Particle styles */
+.season-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  font-size: 29px;
+  letter-spacing: 0px;
+  white-space: nowrap;
+  display: none;
+  opacity: 0;
+}
+
+/* Seasonal emoji */
+.season-emoji {
+  font-size: 70px;
+  cursor: pointer;
+  display: block;
+  z-index: 20; /* Ensure emoji is above particles */
+  position: relative;
+}
+
+/* Seasonal title styling */
+.season-title {
+  margin-top: 16px;
+  font-size: 24px;
+  color: var(--ink);
+  text-align: center;
+  z-index: 30; /* Ensure text is above particles */
+  position: relative;
+}
+
+.season-year,
+.event-count {
+  margin-top: 8px;
+  color: var(--muted);
+  text-align: center;
+  position: relative;
+  z-index: 30;
+}
+
+.season-year {
+  font-size: 16px;
+}
+
+.event-count {
+  font-size: 12px;
+}
+
+/* Seasonal Text Colors via Data Attribute */
+.modal-image-panel[data-season="Spring"] .season-title {
+    color: var(--text-spring);
+}
+
+.modal-image-panel[data-season="Summer"] .season-title {
+    color: var(--text-summer);
+}
+
+.modal-image-panel[data-season="Fall"] .season-title,
+.modal-image-panel[data-season="Autumn"] .season-title {
+    color: var(--text-fall);
+}
+
+.modal-image-panel[data-season="Winter"] .season-title {
+    color: var(--text-winter);
+}
+
+/* Seasonal Emoji & Particles */
+.season-emoji {
+    font-size: 70px;
+    cursor: pointer;
+    display: block;
+}
+
+/* glowing sun */
+.modal-image-panel[data-season="Summer"] .season-emoji {
+  font-size: 70px;
+  cursor: pointer;
+  display: block;
+  text-shadow:
+    0 0 20px #FFD700,
+    0 0 40px #FFA500,
+    0 0 60px #FF4500,
+    0 0 80px #FF8C00;
+}
+
+.season-particle {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    font-size: 29px;
+    letter-spacing: 0px;
+    white-space: nowrap;
+    display: none;
+    opacity: 0;
+}
+
+/* glowing sun particle */
+.modal-image-panel[data-season="Summer"] .season-particle {
+  font-size: 18px;
+  text-shadow:
+    0 0 6px #FFD700,
+    0 0 12px #FFA500,
+    0 0 18px #FF8C00;
+  opacity: 0.7;
+}
+
+/* Seasonal Title Styling */
+.season-title {
+    margin-top: 16px;
+    font-size: 24px;
+    color: var(--ink);
+}
+
+.season-year,
+.event-count {
+    margin-top: 8px;
+    color: var(--muted);
+}
+
+.season-year {
+    font-size: 16px;
+}
+
+.event-count {
+    font-size: 12px;
+}
+
+/* Empty State */
+.modal-info-panel.empty-state {
+    text-align: center;
+    padding: 40px;
+}
+
+/* Status Highlight */
+.status-start {
+  color: #28a745; /* Green example */
+  font-weight: bold;
+}
+
+/* New Middle Style */
+.status-middle {
+  color: #ffc107; /* Yellow/Orange example */
+  font-style: italic;
+}
+
+/* New End Style */
+.status-end {
+  color: #dc3545; /* Red example */
+  font-weight: bold;
+}
+
+.box .status-start {
+    color:var(--green) !important ;
+}
+
+.box .req-owner{
+    color:var(--green);
+}
+dl .req-owner dd{
+    color:var(--green);
+    font-size: 15px ;
+    font-weight: bold;
+}
+dl .req-item dd{
+    color:var(--text-winter);
+}
+
+/* ============================================
+   13. RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 820px) {
+    .modal {
+        padding: 12px;
+    }
+
+    .modal-card {
+        max-height: 88vh;
+        padding: 18px 14px 14px;
+    }
+
+    .modal-layout {
+        grid-template-columns: 1fr;
+        max-height: none;
+    }
+
+    .modal-info-panel {
+        max-height: 45vh;
+    }
+}
+
+@media (max-width: 760px) {
+    .content {
+        padding: 16px;
+    }
+
+    .topbar {
+        padding: 0 14px;
+    }
+
+    .hero {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .kpis {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .day {
+        min-height: 80px;
+        border: 1px solid #ddd;
+        padding: 4px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .eventchip {
+        font-size: 9px;
+        padding: 4px;
+    }
+}
+
+
+.hiddens {
+    display: none;
+}
+
+.box.target{
+    border-color: var(--text-winter);
+    box-shadow: 0 24px 45px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   14. LOCATION MAP - FULL SCREEN & ALIGNED
+   ============================================ */
+main:has(.map-container) {
+    padding: 0;
+    overflow: hidden;
+}
+
+.container:has(.map-container) {
+    display: block;
+}
+
+.map-container {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: visible; /* allow tooltips to escape the map bounds */
+    background: #1b261e;
+    aspect-ratio: 700 / 394;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: fill;;
+}
+
+.map-star {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+}
+
+.star-icon {
+    font-size: 34px;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.5);
+    display: block;
+}
+
+.map-star:hover {
+    transform: translate(-50%, -50%) scale(1.3);
+    z-index: 100;
+}
+
+/* Tooltip Container — opens BELOW the star by default,
+   so top-row stars are never hidden by the sticky header */
+.map-tooltip {
+    position: absolute;
+    top: 45px;              /* was: bottom: 50px (opened upward, hidden by header) */
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 10px 15px;
+    width: 220px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+/* Bottom-row stars: flip tooltip ABOVE so it isn't clipped at the page bottom.
+   Add class="low" in JS when loc.y > 50 */
+.map-star.low .map-tooltip {
+    top: auto;
+    bottom: 45px;
+}
+
+.map-tooltip h3 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    color: var(--gold);
+    font-weight: 800;
+}
+
+.map-tooltip p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.4;
+}
+
+.map-star.active .map-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(10px); /* slide down on show */
+}
+
+.map-star.low.active .map-tooltip {
+    transform: translateX(-50%) translateY(-10px); /* slide up on show */
+}
+
+/* Keep header above stars, but tooltips still win when open */
+header {
+    z-index: 50;
+}
+
+@media (max-width: 760px) {
+    .map-tooltip {
+        width: 160px;
+        top: 34px;
+    }
+    .map-star.low .map-tooltip {
+        bottom: 34px;
+    }
+    .star-icon {
+        font-size: 24px;
+    }
+}
+
+/* ============================================
+   15. MOBILE FIRST - BOTTOM NAV (REWORKED)
+   ============================================ */
+
+/* Hide mobile nav on desktop */
+.mobile-nav {
+    display: none;
+}
+
+/* Mobile - Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+
+    /* --- 1. Layout & Header --- */
+    body {
+        background: var(--surface2);
+    }
+
+    .app {
+        display: block; /* Stack sidebar and main */
+    }
+
+    header {
+        height: 60px;
+        padding: 0 15px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .brand h1 { font-size: 18px; }
+    .brand p { font-size: 12px; }
+
+    /* --- 2. Hide Desktop Sidebar --- */
+    aside {
+        display: none !important;
+    }
+
+    /* --- 3. Main Content Adjustments --- */
+    main {
+        padding: 0px;
+        padding-bottom: 70px; /* Space for bottom nav */
+    }
+
+    .container {
+        grid-template-columns: 1fr 1fr; /* 2 columns on phone */
+        gap: 10px;
+    }
+
+    /* Reduce card sizing so nothing is cut off */
+    .box {
+        padding: 6px;
+        border-radius: 8px;
+    }
+
+    .image-frame {
+        height: 120px;
+        border-radius: 5px;
+    }
+
+    .box h2 {
+        font-size: 12px;
+        margin: 8px 2px 0;
+    }
+
+    .detail dt,
+    .detail dd {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+
+    .detail {
+        grid-template-columns: 1fr; 
+        gap: 2px;
+        padding-top: 4px;
+    }
+
+    /* --- 4. Mobile Bottom Nav Bar --- */
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background: var(--surface);
+        border-top: 1px solid var(--line);
+        z-index: 1000;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .mobile-nav .nav {
+        background: transparent;
+        border: none;
+        font-size: 24px;
+        padding: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ink);
+        border-radius: 10px;
+    }
+
+    .mobile-nav .nav.active,
+    .mobile-nav .nav:hover {
+        background: var(--leaf2);
+        font-size: 28px;
+    }
+
+    /* --- 5. Calendar / KPI Rework --- */
+    .kpis {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .hero h1 { font-size: 22px; }
+    .hero p { font-size: 12px; }
+
+    .day {
+        min-height: 80px;
+        border-radius: 5px;
+        padding: 4px;
+    }
+
+    .eventchip {
+        font-size: 8px;
+        padding: 1px 3px;
+    }
+
+    /* --- 6. Map / Locations --- */
+   .container:has(.map-container) {
+        padding: 0;
+    }
+
+    /* --- FIX: Maximize Rotated Map Size --- */
+   .map-rotator {
+    position: relative;
+    /* Use 100vw for width, height will be determined by aspect ratio */
+    width: 100vw;
+    /* Subtract header (60px) and bottom nav (60px) from height to avoid crop */
+    height: calc(100vh - 120px); 
+    overflow: hidden;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 50%;
+    width: auto; /* Let aspect ratio determine width */
+    aspect-ratio: 700 / 394;
+    border: none;
+    margin: 0;
+    transform: translate(-50%, -50%) rotate(90deg);
+    transform-origin: center center;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* CRITICAL: Ensures no crop, fits inside box */
+    display: block;
+    border-radius: 20px;
+}
+
+/* Keep stars anchored correctly */
+.map-star {
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+    .star-icon {
+        font-size: 24px;
+        /* Increase icon size slightly for better visibility */
+    }
+
+    /* Counter-rotate tooltip */
+    .map-tooltip {
+        width: 150px;
+        padding: 6px;
+        transform: translateX(-50%) rotate(-90deg);
+        transform-origin: top center;
+        /* Ensure tooltip stays visible even if map is large */
+        z-index: 1500;
+    }
+
+    .map-star.active .map-tooltip {
+        transform: translateX(-50%) translateY(10px);
+    }
+
+    .map-star.low .map-tooltip {
+        transform: translateX(-50%) ;
+    }
+
+    .map-star.low.active .map-tooltip {
+        transform: translateX(-50%)  translateY(-10px);
+    }
+
+    .map-tooltip h3 { font-size: 13px; }
+    .map-tooltip p { font-size: 11px; }
+
+    /* --- 7. Modals (Full Screen) --- */
+    .modal {
+        padding: 0;
+        align-items: flex-start;
+        z-index: 2000;
+    }
+
+    .modal-card {
+        width: 100%;
+        max-height: max-content;
+        border-radius: 15px 15px 0 0;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .modal-layout {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        height: auto;
+    }
+
+
+    /* --- FIX: modal image panel on phones --- */
+   .modal-image-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Ensures children take full width */
+    /* No extra padding that pushes content down */
+}
+
+.modal-image-panel .mdi {
+    /* Ensure it stays at the top */
+    width: 100%;
+    height: auto;
+    max-height: 25vh;
+    overflow: hidden;
+    border-radius: 8px;
+    
+    /* Flex properties to keep it at top */
+    flex-shrink: 0; /* Prevents shrinking */
+    margin-bottom: 10px; /* Optional: space before text */
+    
+    /* Grid to center image INSIDE the box */
+    display: grid;
+    place-items: center;
+}
+
+.modal-image-panel .mdi img {
+    width: 50%;
+    height: 90%;
+    object-fit: contain;
+    transform: none !important;
+    /* Optional: Add a small margin if needed to prevent touching edges */
+    margin: 0 auto; 
+}
+
+    /* If you still want the zoom effect on tap, remove the line above and use: */
+    /* .modal-image-panel .mdi:hover img { transform: scale(1.1); } */
+
+    .modal-image-panel h2 {
+        font-size: 16px;
+        margin: 6px 0 0;
+    }
+
+    .modal-info-panel {
+        max-height: 50vh;
+    }
+
+
+    .day{
+        min-width: 18px;
+    }
+
+    .box .image-frame{
+        height: 300px;
+    }
+}
+
+
+
+/* ============================================
+   END OF CSS
+   ============================================ */
+
+   /* temp debug helper */
+.map-container { cursor: crosshair; }

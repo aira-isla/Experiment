@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvest Moon Companion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <header>
+        <div class="brand">
+            <div class="logo">🌱</div>
+            <div>
+                <h1>Harvest Moon</h1>
+                <p>Hero of Leaf Valley Guide</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="app">
+
+        <aside id="sidebar">
+            <nav id="nav">
+                <button class="nav" data-view="calendar">📅 Calendar</button> 
+                <button class="nav" data-view="npcs">👤 NPCs</button>
+                <button class="nav" data-view="animals">🐄 Animals</button>
+                <button class="nav" data-view="crops">🌾 Crops</button>
+                <button class="nav" data-view="fishing">🎣 Fishing</button>
+                <button class="nav" data-view="mining">⛏ Mining</button>
+                <button class="nav" data-view="cooking">🍳 Cooking</button>
+                <button class="nav" data-view="routes">🗺 Story Routes</button>
+                <button class="nav" data-view="requests">📋 Requests</button>
+                <button class="nav" data-view="locations">📍 Locations</button>
+            </nav>
+        </aside>
+
+        <main>
+            <div class="container" id="content" aria-live="polite">
+                <!-- get injected from js -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav id="mobile-nav" class="mobile-nav">
+        <button class="nav" data-view="calendar">📅</button>
+        <button class="nav" data-view="npcs">👤</button>
+        <button class="nav" data-view="crops">🌾</button>
+        <button class="nav" data-view="fishing">🎣</button>
+         <button class="nav" data-view="routes">🗺</button>
+            <button class="nav" data-view="mining">⛏</button>
+        <button class="nav" data-view="locations">📍</button>
+    </nav>
+
+    <div id="modal" class="modal hidden">     
+        <!-- get injected from js -->
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+</body>
+</html>
