@@ -108,7 +108,7 @@ export function renderLocations() {
   const mapHtml = `
   <div class="map-rotator">
     <div class="map-container">
-      <img src="../asset/map/Map.webp" alt="Game Map" class="map-image">
+      <img class="map-image" src="../asset/npc/Map.webp" alt="Game Map" >
       ${locations
         .map(
           (loc) => `
