@@ -8,7 +8,6 @@ export async function loadSuper() {
     if (!res.ok) throw new Error('Failed to load super.json');
     sb = await res.json();
     console.log('main data loaded');
-    console.log(sb)
     return sb;
   } catch (err) {
     console.error('Error loading data:', err);
