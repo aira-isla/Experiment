@@ -215,6 +215,8 @@ const minYear = 1;
 const seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
 let currentSeasonIndex = 0;
 let currentStartDayIndex = 1; // 0=sunday 1=monday
+let indexedGameData = null;
+let cachedEventIndex = null;
 
 export async function renderCalendar() {
   const gameData = getData();
@@ -226,7 +228,11 @@ export async function renderCalendar() {
 
   const currentSeason = seasons[currentSeasonIndex];
   const daysInSeason = gameData?.timeframe?.days_per_season || 30;
-  const eventIndex = buildEventIndex(gameData);
+  if (gameData !== indexedGameData) {
+    cachedEventIndex = buildEventIndex(gameData);
+    indexedGameData = gameData;
+  }
+  const eventIndex = cachedEventIndex;
 
   let gridHtml = '';
 

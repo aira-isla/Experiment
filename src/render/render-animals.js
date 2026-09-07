@@ -1,4 +1,5 @@
 import { getData } from "../data-loader.js";
+import { getImageHtml } from '../utils/images.js';
 
 export function renderAnimals() {
   const sb = getData();
@@ -9,15 +10,13 @@ export function renderAnimals() {
     return;
   }
     
-    boxMain.innerHTML = '';
+    const fragment = document.createDocumentFragment();
     
     Object.entries(sb.animal_products).forEach(([ids, keys]) => {
         const article = document.createElement('article');
         article.className = 'box';
         article.innerHTML = `
-            <div class="image-frame">
-            <img src="./asset/animal/${keys.name}.webp"  loading="lazy"  alt="${keys.name}">
-        </div>
+            <div class="image-frame">${getImageHtml(`./asset/animal/${keys.name}.webp`, keys.name)}</div>
            <h2>${keys.name}</h2>
            <dl>
            <div class="detail"><dt>Buy price</dt><dd>${keys?.buy_price || 'Free'}</dd></div>
@@ -25,7 +24,9 @@ export function renderAnimals() {
            </dl>
            `;
 
-        boxMain.appendChild(article);
+      fragment.appendChild(article);
 
    })     
+
+    boxMain.replaceChildren(fragment);
 }

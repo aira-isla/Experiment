@@ -4,7 +4,7 @@ export function renderMining() {
     const sb = getData();
     const boxMain = document.querySelector('#content');
 
-    boxMain.innerHTML = '';
+    const fragment = document.createDocumentFragment();
 
     Object.entries(sb.mining).forEach(([ids, keys]) => {
         const disMining = ['ores', 'gems', 'artifacts']
@@ -25,9 +25,11 @@ export function renderMining() {
                 </dl>
                 `;
 
-                boxMain.appendChild(article)
+                    fragment.appendChild(article)
             })
 
         }
     })
+
+        boxMain.replaceChildren(fragment);
 }

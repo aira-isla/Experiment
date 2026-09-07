@@ -1,6 +1,7 @@
 // src/render-npcs.js
 import { getData } from '../data-loader.js';
 import { openDetail } from '../modal/modal-npc.js';
+import { getImageHtml } from '../utils/images.js';
 
 export function renderNpcs() {
   const sb = getData();
@@ -11,19 +12,14 @@ export function renderNpcs() {
     return;
   }
 
-  boxMain.innerHTML = '';
+  const fragment = document.createDocumentFragment();
 
   Object.entries(sb.characters).forEach(([key, npcs]) => {
     Object.entries(npcs).forEach(([npcKey, npc]) => {
       const article = document.createElement('article');
       article.className = 'box';
       article.innerHTML = `
-        <div class="image-frame">
-            <img 
-                src="./asset/npc/${npc.name}.webp" loading="lazy"
-                alt="${npc.name}"
-              >
-        </div>
+        <div class="image-frame">${getImageHtml(`./asset/npc/${npc.name}.webp`, npc.name)}</div>
         <h2>${npc.name}</h2>
         <dl>
             <div class="detail"><dt>category</dt><dd>${key}</dd></div>
@@ -37,7 +33,9 @@ export function renderNpcs() {
         openDetail(npc, key);
       });
 
-      boxMain.appendChild(article);
+      fragment.appendChild(article);
     });
   });
+
+  boxMain.replaceChildren(fragment);
 }

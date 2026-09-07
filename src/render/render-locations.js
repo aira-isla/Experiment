@@ -1,6 +1,7 @@
 // src/render/render-locations.js
 
 // Coordinates as % of the map image (measured against 700x394)
+import { getImageHtml } from '../utils/images.js';
 const locations = [
   {
     id: 1,
@@ -108,7 +109,7 @@ export function renderLocations() {
   const mapHtml = `
   <div class="map-rotator">
     <div class="map-container">
-      <img   src="./asset/npc/Map.webp"  class="map-image" alt="Game Map">
+      ${getImageHtml('./asset/npc/Map.webp', 'Game Map', { eager: true, className: 'map-image' })}
       ${locations
         .map(
           (loc) => `

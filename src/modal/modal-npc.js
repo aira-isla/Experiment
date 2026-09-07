@@ -1,12 +1,18 @@
 // src/modal-npc.js
+import { getImageHtml } from '../utils/images.js';
+
 const modal = document.getElementById('modal');
 
 export function closeModal() {
-  if (modal) modal.classList.add('hidden');
+  if (!modal) return;
+  modal.classList.add('hidden');
+  modal.__returnFocus?.focus?.();
+  modal.__returnFocus = null;
 }
 
 export function openDetail(npc, category) {
   if (!modal) return;
+  modal.__returnFocus = document.activeElement;
   modal.classList.remove('hidden');
 
   // Helper to format relationship text
@@ -206,10 +212,7 @@ export function openDetail(npc, category) {
           <!-- Left Panel: Image -->
           <article class="modal-image-panel">
             <div class="mdi mdi-image">
-              <img 
-                src="./asset/npc/${npc.name}.webp" loading="lazy"
-                alt="${npc.name}"
-              >
+              ${getImageHtml(`./asset/npc/${npc.name}.webp`, npc.name, { eager: true })}
             </div>
             <h2>${npc.name}</h2>
             <p style="text-align:center; color: var(--muted); font-size: 14px; margin-top: 8px;">${category || 'NPC'}</p>
@@ -226,6 +229,7 @@ export function openDetail(npc, category) {
       </div>
     </div>
   `;
+  modal.querySelector('.close')?.focus();
 
 }
 

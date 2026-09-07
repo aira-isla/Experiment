@@ -1,2 +1,81 @@
-User-agent: *
-Disallow:
+# Project: Harvest Moon Companion – Single‑Page App Optimization
+
+## Current State
+- **Tech stack**: Vanilla HTML, CSS, JavaScript modules (no framework).
+- **Data**: Split into JSON chunks loaded lazily via `loadData()`.
+- **Renders**: All views (`npcs`, `calendar`, `crops`, etc.) are async and use `DocumentFragment` for efficient DOM updates.
+- **Modal**: Unified `modal.js` for NPC and calendar details.
+- **CSS**: Minified and dead code removed.
+- **Images**: `.webp` used with lazy loading.
+
+## Goal
+Apply the remaining high‑priority optimizations from the checklist below. Focus on improvements that affect user experience and performance metrics (FCP, LCP, TTI).
+
+## High‑Priority Tasks (Do these first)
+
+### 1. Add a Loading Skeleton
+- When the user opens the app (or switches views), show a skeleton / shimmer placeholder instead of a blank screen or “Loading...” text.
+- Use CSS animations for a smooth shimmer effect.
+- For the calendar, show a grid of placeholder cells; for NPCs, show placeholder cards.
+- Ensure the skeleton is immediately visible (inline in HTML or injected early).
+
+### 2. Preload Critical Resources
+- In `index.html`, add `<link rel="preload">` for:
+  - The default view’s JSON (e.g., `calendar.json` or `story_paths.json`).
+  - The map image (`Map.webp`).
+  - The first few NPC images (e.g., popular characters) if they’re part of the default view.
+- Use `<link rel="preconnect">` for any external domains (if any).
+- Add `<link rel="prefetch">` for the next likely view’s JSON (e.g., NPCs) using `requestIdleCallback`.
+
+### 3. Server‑Side Compression
+- Ensure the server delivers all text assets (HTML, CSS, JS, JSON) with **Brotli** or **Gzip** compression.
+- Add appropriate `Content-Encoding` headers.
+
+### 4. Caching Headers
+- Set `Cache-Control` headers for:
+  - **Images**: `max-age=31536000, immutable`
+  - **CSS/JS**: `max-age=31536000, immutable` (use versioning via query string or filename hash)
+  - **JSON**: `max-age=3600` (or `no-cache` if data updates frequently)
+
+### 5. Service Worker for Offline Support
+- Write a service worker that caches:
+  - All static assets (HTML, CSS, JS, images) on install.
+  - JSON data chunks on demand (cache‑first strategy).
+- Register the service worker in `main.js`.
+- Show a notification when the app is ready offline.
+
+### 6. Build Tool Setup (Vite)
+- Configure **Vite** as the build tool.
+- Set up:
+  - Entry point: `index.html`
+  - Module bundling and minification for production.
+  - Asset hashing for cache busting.
+  - Automatic `preload` generation for entry chunks.
+- Provide the `vite.config.js` file.
+
+### 7. Image Conversion to .avif
+- Convert all `.webp` images to `.avif` (use `sharp`, `avifenc`, or a similar tool).
+- Update the `getImageHtml` helper to include `.avif` sources (already done, but ensure the files exist).
+
+### 8. Performance Monitoring
+- Add `performance.mark()` calls around each render function to measure render time.
+- Log metrics to the console in development.
+- (Optional) Integrate with a Web Vitals library.
+
+## Additional Low‑Priority but Nice‑to‑Have Tasks
+- Add a `localStorage`‑based “last visited view” to restore on reload.
+- Use `content-visibility: auto` on card lists to improve scrolling performance.
+- Add a “Back to Top” button.
+- Ensure focus management in modals for accessibility.
+
+## Deliverables
+Please provide the updated code for the following files (or new files):
+1. `index.html` – with preloads and skeleton placeholders.
+2. `style.css` – with skeleton styles and any other optimizations.
+3. `src/app.js` – updated to show skeleton and use idle preloading.
+4. `src/service-worker.js` – the service worker script.
+5. `vite.config.js` – the build configuration.
+6. A script or instructions for converting images to .avif.
+7. Updated `src/utils/images.js` to handle .avif correctly (if not already).
+
+Please explain any trade‑offs or assumptions you make. Ensure all changes are compatible with existing code and do not break functionality.

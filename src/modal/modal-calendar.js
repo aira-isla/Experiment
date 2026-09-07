@@ -1,12 +1,16 @@
 const modal = document.getElementById('modal');
 
 export function closeModal() {
-  if (modal) modal.classList.add('hidden');
+  if (!modal) return;
+  modal.classList.add('hidden');
+  modal.__returnFocus?.focus?.();
+  modal.__returnFocus = null;
 }
 
 //Event displayer
 export function processCalendarData(data) {
   if (!modal) return;
+  modal.__returnFocus = document.activeElement;
 
   if (!data || !data.date || !data.events || data.events.length === 0) {
     modal.innerHTML = `
@@ -21,6 +25,7 @@ export function processCalendarData(data) {
       </div>
     `;
     modal.classList.remove('hidden');
+    modal.querySelector('.close')?.focus();
     return;
   }
 
@@ -168,6 +173,7 @@ export function processCalendarData(data) {
     </div>
   </div>
 `;
+  modal.querySelector('.close')?.focus();
 
   const emojiSpan = modal.querySelector('.season-emoji');
   const modalPanel = modal.querySelector('.modal-image-panel');

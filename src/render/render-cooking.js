@@ -3,7 +3,7 @@ import { getData } from "../data-loader.js";
 export function renderCooking() {
     const boxMain = document.querySelector('#content');
     const sb = getData();
-    boxMain.innerHTML = '';
+    const fragment = document.createDocumentFragment();
 
     Object.entries(sb.cooking).forEach(([ids, keys]) => {
         const disKitchen = ['utensils', 'kitchen']
@@ -25,9 +25,11 @@ export function renderCooking() {
                 </dl>
                 `;
 
-                boxMain.appendChild(article)
+                    fragment.appendChild(article)
 
             })
         }
     })
+
+        boxMain.replaceChildren(fragment);
 }

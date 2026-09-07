@@ -3,7 +3,7 @@ import { getData } from "../data-loader.js";
 export function renderRoutes() {
     const sb = getData();
     const boxMain = document.querySelector('#content');
-    boxMain.innerHTML = '';
+    const fragment = document.createDocumentFragment();
 
     let groupIndex = 0; 
     Object.entries(sb.story_paths_complete).forEach(([ids, keys]) => {
@@ -21,7 +21,7 @@ export function renderRoutes() {
                 </dl>
                 `;
 
-        boxMain.appendChild(article); 
+        fragment.appendChild(article); 
 
         Object.entries(keys.events).forEach(([id, key]) => {
             const article1 = document.createElement('article');
@@ -40,12 +40,14 @@ export function renderRoutes() {
                 </dl>
             `;
 
-            boxMain.appendChild(article1)
+            fragment.appendChild(article1)
 
         })
     });
 
-     const triggers = document.querySelectorAll('.triger');
+    boxMain.replaceChildren(fragment);
+
+    const triggers = document.querySelectorAll('.triger');
      triggers.forEach((trigger) => {
        trigger.addEventListener('click', function () {
          const group = this.dataset.group;
@@ -55,4 +57,5 @@ export function renderRoutes() {
            .forEach((el) => el.classList.toggle('hiddens'));
        });
      });
+
 }

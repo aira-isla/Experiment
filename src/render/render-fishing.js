@@ -9,7 +9,7 @@ export function renderFishing() {
     return;
   }
 
-  boxMain.innerHTML = '';
+  const fragment = document.createDocumentFragment();
 
   Object.entries(sb.fishing.fish).forEach(([key, fishs]) => {
     const article = document.createElement('article');
@@ -25,6 +25,8 @@ export function renderFishing() {
         <div class="detail"><dt>location</dt><dd>${fishs.locations.join(', ')}</dd></div>
       </dl>
     `;
-    boxMain.appendChild(article);
+      fragment.appendChild(article);
   });
+
+    boxMain.replaceChildren(fragment);
 }
