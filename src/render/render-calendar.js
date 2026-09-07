@@ -249,7 +249,15 @@ export async function renderCalendar() {
     let eventsHtml = '';
 
    if (dayEvents.length > 0) {
-     const displayEvents = dayEvents.slice(0, 3);
+     const orderedEvents = [
+       ...dayEvents.filter((event) => event.category === 'birthday'),
+       ...dayEvents.filter((event) => event.category === 'festival'),
+       ...dayEvents.filter(
+         (event) =>
+           event.category !== 'birthday' && event.category !== 'festival',
+       ),
+     ];
+     const displayEvents = orderedEvents.slice(0, 3);
      eventsHtml = displayEvents
        .map((e) => {
          let label = '';
@@ -271,8 +279,8 @@ export async function renderCalendar() {
        })
        .join('');
 
-     if (dayEvents.length > 3) {
-       eventsHtml += `<div class="more-badge">+${dayEvents.length - 3}</div>`;
+     if (orderedEvents.length > 3) {
+       eventsHtml += `<div class="more-badge">+${orderedEvents.length - 3}</div>`;
      }
    }
 

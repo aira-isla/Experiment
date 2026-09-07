@@ -206,7 +206,7 @@ export function openDetail(npc, category) {
   // Construct the main modal HTML
   modal.innerHTML = `
     <div class="modal-card">
-      <button class="close" onclick="window.closeModal()">🌸</button>
+      <button class="close" type="button" aria-label="Close details" onclick="window.closeModal()">🌸</button>
       <div id="modalContent">
         <div class="modal-layout">
           <!-- Left Panel: Image -->

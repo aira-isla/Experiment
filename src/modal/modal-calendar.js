@@ -15,7 +15,7 @@ export function processCalendarData(data) {
   if (!data || !data.date || !data.events || data.events.length === 0) {
     modal.innerHTML = `
       <div class="modal-card">
-        <button class="close" onclick="window.closeModal()">×</button>
+        <button class="close" type="button" aria-label="Close details" onclick="window.closeModal()">🌸</button>
         <div class="modal-layout">
           <article class="modal-info-panel empty-state">
             <h2>No Events</h2>
@@ -155,7 +155,7 @@ export function processCalendarData(data) {
 
   modal.innerHTML = `
   <div class="modal-card">
-    <button class="close" onclick="window.closeModal()">🌸</button>
+    <button class="close" type="button" aria-label="Close details" onclick="window.closeModal()">🌸</button>
     
     <div class="modal-layout">
       <article class="modal-image-panel" data-season="${season}">

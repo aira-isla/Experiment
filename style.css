@@ -596,20 +596,32 @@ nav {
 }
 
 .close {
-    z-index: 99;
     position: absolute;
-    right: 12px;
     top: 10px;
-    border: 0;
-    background: transparent;
-    color: var(--text-winter);
-    font-size: 32px;
+    right: 10px;
+    z-index: 99;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ink);
+    font: 400 24px/1 sans-serif;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s 
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s;
 }
 
 .close:hover {
-    transform: rotate(90deg) scale(1.2);
+    background: var(--gold);
+    color: var(--surface);
+    transform: rotate(90deg);
+}
+
+.close:focus-visible {
+    outline: none;
 }
 
 /* Modal Detail Styling */
