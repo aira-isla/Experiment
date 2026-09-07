@@ -17,9 +17,9 @@ window.closeModal = closeModal;
 window.openDetail = openDetail;
 
 const renderers = {
+  calendar: renderCalendar,
   npcs: renderNpcs,
   fishing: renderFishing,
-  calendar: renderCalendar,
   crops: renderCrops,
   animals: renderAnimals,
   mining: renderMining,
@@ -63,7 +63,7 @@ export async function initApp() {
   const boxMain = document.querySelector('#content');
   const backToTop = document.querySelector('#back-to-top');
   const savedView = localStorage.getItem('harvest-moon-view');
-  const initialView = renderers[savedView] ? savedView : 'npcs';
+  const initialView = renderers[savedView] ? savedView : 'calendar';
 
   await loadSuper();
   await renderView(initialView);
