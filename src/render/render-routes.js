@@ -17,7 +17,7 @@ export function renderRoutes() {
                 <div class="detail"><dt>Number</dt><dd>${keys.quest_number}</dd></div>
                 <div class="detail"><dt>Id</dt><dd>${keys.id}</dd></div>
                     <div class="detail"><dt>Category</dt><dd>${keys.category.replace(/_/g, ' ')}</dd></div>
-                    <div class="detail"><dt>Characters</dt><dd>${keys.characters.join(', ')}</dd></div>
+                    <div class="detail"><dt>Npc</dt><dd>${keys.characters.join(', ')}</dd></div>
                 </dl>
                 `;
 
@@ -35,7 +35,7 @@ export function renderRoutes() {
                 <div class="detail"><dt>weather</dt><dd>${key.weather}</dd></div>
                 <div class="detail"><dt>when</dt><dd>${key.when}</dd></div>
                 <div class="detail"><dt>location</dt><dd>${key.where}</dd></div>
-                <div class="detail"><dt>branch</dt><dd>${key.branch || 'Main'}</dd></div>
+                <div class="detail"><dt>guide id</dt><dd>${key.guide_id || 'Main'}</dd></div>
                 <div class="detail"><dt>req</dt><dd>${key.requirements || 'N/A'}</dd></div>
                 </dl>
             `;
