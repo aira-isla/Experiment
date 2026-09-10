@@ -1,0 +1,46 @@
+User-agent: *
+Disallow: /data/
+Disallow: /src/
+Disallow: /scripts/
+Disallow: /asset/
+Disallow: /_headers
+Disallow: /service-worker.js
+Disallow: /package.json
+Disallow: /vite.config.js
+Disallow: /.git/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /cgi-bin/
+Disallow: /wp-admin/
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: Yandex
+Disallow: /
+
+User-agent: Rogerbot
+Disallow: /
+
+User-agent: Grapeshot
+Disallow: /
+
+User-agent: SISTRIX
+Disallow: /

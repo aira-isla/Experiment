@@ -17,6 +17,18 @@
   ExpiresByType image/x-icon "access plus 1 year"
 </IfModule>
 
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTP_USER_AGENT} (SemrushBot|Semrush|AhrefsBot|MJ12bot|DotBot|PetalBot|Baiduspider|Yandex|Rogerbot|Grapeshot|SISTRIX|sitechecker|zoominfo|censys|archive\.org_bot) [NC]
+  RewriteRule .* - [F,L]
+
+  RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+  RewriteCond %{HTTP_USER_AGENT} (curl|wget|python-requests|python|Go-http-client|Java|libwww-perl|aiohttp) [NC]
+  RewriteCond %{REQUEST_URI} \.(?:json|js|css|png|jpg|jpeg|gif|webp|avif)$ [NC]
+  RewriteRule .* - [F,L]
+</IfModule>
+
 <IfModule mod_headers.c>
   <FilesMatch "^index\.html$|\.(?:css|js|avif|webp|png|jpg|jpeg|gif|svg|ico)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
