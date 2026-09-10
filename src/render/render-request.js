@@ -18,6 +18,7 @@ export function renderRequest() {
                     <div class="detail"><dt>dueDay</dt><dd>${key.dueDay || 'N/A'} days</dd></div>
                     <div class="detail"><dt>season</dt><dd>${key.season || 'N/A'} Y${key.year || 'N/A'}</dd></div>
                 </dl>
+                <h2>Explore Quest </h2>
                 `;
 
              fragment.appendChild(article);

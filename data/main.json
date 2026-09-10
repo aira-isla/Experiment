@@ -6439,8 +6439,8 @@
           "event_name": "Louis the Inventor",
           "when": "Spring 12 - 18, Year 1",
           "where": "Louis's Shop",
-          "time": "",
-          "weather": "",
+          "time": "Any",
+          "weather": "clear or cloudy",
           "requirements": "Louis's FP level must be at least 20",
           "optional": false,
           "note": "You learn that Louis considers inventing a hobby. Note: Finish Rudolph's and Woody's part-time jobs before continuing this path."

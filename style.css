@@ -1198,6 +1198,24 @@ dl .req-item dd{
     color:var(--text-winter);
 }
 
+.box.triger {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.status-explore {
+    margin-top: auto;
+    margin-left: auto;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-winter);
+    text-align: right;
+    padding-top: 38px;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
 /* ============================================
    13. RESPONSIVE DESIGN
    ============================================ */

@@ -19,6 +19,7 @@ export function renderRoutes() {
                     <div class="detail"><dt>Category</dt><dd>${keys.category.replace(/_/g, ' ')}</dd></div>
                     <div class="detail"><dt>Npc</dt><dd>${keys.characters.join(', ')}</dd></div>
                 </dl>
+                <p  class="status-explore">Explore Quest >> </p>
                 `;
 
         fragment.appendChild(article); 
