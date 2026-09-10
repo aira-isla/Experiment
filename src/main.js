@@ -9,13 +9,25 @@ function showOfflineReady() {
 }
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js')
+  const registerServiceWorker = () => {
+    navigator.serviceWorker
+      .register('./service-worker.js')
       .then((registration) => {
         if (registration.active) showOfflineReady();
       })
       .catch((error) => console.warn('Offline support unavailable:', error));
-  }, { once: true });
+  };
+
+  const scheduleServiceWorker = () => {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(registerServiceWorker, { timeout: 3000 });
+    } else {
+      setTimeout(registerServiceWorker, 500);
+    }
+  };
+
+  window.addEventListener('load', scheduleServiceWorker, { once: true });
+
   navigator.serviceWorker.addEventListener('message', (event) => {
     if (event.data?.type === 'offline-ready') showOfflineReady();
   });

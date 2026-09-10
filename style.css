@@ -1437,11 +1437,29 @@ header {
         padding: 6px;
         border-radius: 8px;
     }
+/* ✅ NEW – frame keeps a sane aspect ratio, image always fits */
+.container .box .image-frame {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 /4;      /* square card image, change to 4/3 if you prefer */
+    max-height: 320px;        /* safety cap for very wide screens */
+    border-radius: 5px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+}
 
-    .image-frame {
-        height: 120px;
-        border-radius: 5px;
-    }
+.box .image-frame img {
+    width: 100%;
+    object-fit: contain;
+    object-position: center;      /* full sprite, never cropped */
+    transform: none;          /* cancel the desktop zoom translate */
+}
+
+/* keep the "no image" fallback emoji centred */
+.box .image-frame.no-image span {
+    font-size: 44px;
+}
 
     .box h2 {
         font-size: 12px;
@@ -1626,7 +1644,7 @@ header {
     /* Ensure it stays at the top */
     width: 100%;
     height: auto;
-    max-height: 25vh;
+    max-height: 35vh;
     overflow: hidden;
     border-radius: 8px;
     
@@ -1683,6 +1701,11 @@ header {
     .calendar-grid,
     .weekday {
         min-width: 560px;
+    }
+
+      .image-frame {
+        height: 120px;
+        border-radius: 5px;
     }
 
     .day {

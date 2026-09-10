@@ -69,17 +69,6 @@ export async function initApp() {
   await renderView(initialView);
   navButtons.forEach((button) => button.classList.toggle('active', button.dataset.view === initialView));
 
-  const prefetch = () => {
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.href = './data/main.json';
-    link.as = 'fetch';
-    link.crossOrigin = 'anonymous';
-    document.head.appendChild(link);
-  };
-  if ('requestIdleCallback' in window) requestIdleCallback(prefetch, { timeout: 2000 });
-  else setTimeout(prefetch, 1000);
-
   navButtons.forEach((btn) => {
     btn.addEventListener('click', async () => {
       const view = btn.dataset.view;
