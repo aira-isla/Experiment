@@ -1190,7 +1190,7 @@ nav {
     color:var(--green);
 }
 dl .req-owner dd{
-    color:var(--green);
+    color:var(--text-winter);
     font-size: 15px ;
     font-weight: bold;
 }
